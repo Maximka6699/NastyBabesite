@@ -465,42 +465,183 @@
                         <!-- Блок 5: Подвал (Контакты) -->
                         <div id="block_481020" class="col-12 my-2">
                             <style>
-                                .footer-block-wrapper-gp-g-v1 { font-family: 'Montserrat', sans-serif; padding: 50px 20px 80px; text-align: center; }
-                                .footer-block-wrapper-gp-g-v1 .footer-title { font-size: 3rem; font-weight: 900; text-transform: uppercase; margin: 0 0 30px 0; color: var(--text-color); }
-                                .footer-block-wrapper-gp-g-v1 .footer-buttons { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 50px; }
+                                .footer-block-wrapper {
+                                    font-family: 'Montserrat', sans-serif;
+                                    padding: 80px 40px;
+                                    background-color: transparent; 
+                                    border-top: 1px solid rgba(255, 255, 255, 0.05); 
+                                    margin-top: 40px;
+                                }
                                 
-                                .footer-block-wrapper-gp-g-v1 .footer-button {
-                                    display: inline-flex; align-items: center; gap: 10px; padding: 15px 30px; border-radius: 8px;
-                                    color: white !important; text-decoration: none !important; font-weight: 800; font-size: 16px; 
-                                    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+                                .footer-container {
+                                    max-width: 1200px;
+                                    margin: 0 auto;
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    gap: 40px;
                                 }
-                                .footer-block-wrapper-gp-g-v1 .footer-button:hover { 
-                                    transform: scale(1.05); 
-                                    border-color: var(--primary-color);
-                                    box-shadow: 0 10px 30px rgba(146, 164, 187, 0.2);
-                                }
-                                .footer-block-wrapper-gp-g-v1 .footer-button svg { width: 24px; height: 24px; fill: #ffffff; }
 
-                                .footer-block-wrapper-gp-g-v1 .footer-legal { font-size: 10px; font-weight: 400; color: #8C9FBA; line-height: 1.4; max-width: 800px; margin: 0 auto; opacity: 0.6; }
-                                @media (max-width: 768px) { .footer-block-wrapper-gp-g-v1 .footer-title { font-size: 2rem; } .footer-block-wrapper-gp-g-v1 .footer-buttons { flex-direction: column; } .footer-block-wrapper-gp-g-v1 .footer-button { width: 100%; max-width: 300px; justify-content: center; } }
+                                .footer-left-content {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 30px; /* Расстояние между заголовком и колонками */
+                                }
+
+                                .footer-main-title {
+                                    font-size: 2.5rem;
+                                    font-weight: 900;
+                                    color: var(--text-color);
+                                    text-transform: uppercase;
+                                    margin: 0;
+                                    letter-spacing: 1px;
+                                }
+
+                                .footer-links-section {
+                                    display: flex;
+                                    gap: 80px;
+                                }
+
+                                .footer-column {
+                                    display: flex;
+                                    gap: 15px;
+                                }
+
+                                .footer-column-title {
+                                    font-size: 16px;
+                                    font-weight: 400;
+                                    color: #FFFFFF;
+                                    margin: 0;
+                                    line-height: 1.5;
+                                }
+
+                                .footer-links-list {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 8px;
+                                }
+
+                                .footer-link {
+                                    font-size: 16px;
+                                    font-weight: 400;
+                                    color: #FFFFFF;
+                                    text-decoration: none;
+                                    transition: color 0.2s ease, text-shadow 0.2s ease;
+                                }
+
+                                .footer-link:hover {
+                                    color: var(--primary-color);
+                                    text-shadow: 0 0 10px rgba(146, 164, 187, 0.5);
+                                }
+
+                                .footer-logo-wrapper {
+                                    flex-shrink: 0;
+                                }
+
+                                .footer-logo {
+                                    width: 300px; /* Сделал логотип чуть больше для баланса с заголовком */
+                                    height: auto;
+                                    object-fit: contain;
+                                    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
+                                    transition: transform 0.3s ease;
+                                }
+                                
+                                .footer-logo:hover {
+                                    transform: scale(1.05);
+                                }
+
+                                .footer-legal-text {
+                                    max-width: 1200px;
+                                    margin: 60px auto 0;
+                                    font-size: 10px;
+                                    font-weight: 400;
+                                    color: #64758D;
+                                    line-height: 1.5;
+                                    opacity: 0.6;
+                                    text-align: center;
+                                }
+
+                                /* Адаптация для мобильных устройств */
+                                @media (max-width: 992px) {
+                                    .footer-block-wrapper {
+                                        padding: 40px 20px 80px;
+                                    }
+                                    .footer-container {
+                                        flex-direction: column;
+                                        align-items: center;
+                                        text-align: center;
+                                        gap: 40px;
+                                    }
+                                    .footer-left-content {
+                                        align-items: center;
+                                        gap: 40px;
+                                    }
+                                    .footer-main-title {
+                                        font-size: 1.8rem;
+                                        text-align: center;
+                                    }
+                                    .footer-links-section {
+                                        flex-direction: column;
+                                        gap: 30px;
+                                        width: 100%;
+                                    }
+                                    .footer-column {
+                                        flex-direction: column;
+                                        align-items: center;
+                                        gap: 10px;
+                                    }
+                                    .footer-logo {
+                                        width: 200px;
+                                    }
+                                    .footer-links-list {
+                                        align-items: center;
+                                    }
+                                }
                             </style>
-                            <div class="footer-block-wrapper-gp-g-v1 scroll-anim">
-                                <h2 class="footer-title">Остались вопросы? Пишите!</h2>
-                                <div class="footer-buttons">
-                                    <a href="https://vk.me/84officiall" target="_blank" class="footer-button glass-card hover-target">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M545 117.7c3.7-12.5 0-21.7-17.8-21.7h-58.9c-15 0-21.9 7.9-25.6 16.7 0 0-30 73.1-72.4 120.5-13.7 13.7-20 18.1-27.5 18.1-3.7 0-9.4-4.4-9.4-16.9V117.7c0-15-4.2-21.7-16.6-21.7h-92.6c-9.4 0-15 7-15 13.5 0 14.2 21.2 17.5 23.4 57.5v86.8c0 19-3.4 22.5-10.9 22.5-20 0-68.6-73.4-97.4-157.4-5.8-16.3-11.5-22.9-26.6-22.9H38.8c-16.8 0-20.2 7.9-20.2 16.7 0 15.6 20 93.1 93.1 195.5C160.4 378.1 229 416 291.4 416c37.5 0 42.1-8.4 42.1-22.9 0-66.8-3.4-73.1 15.4-73.1 8.7 0 23.7 4.4 58.7 38.1 40 40 47.1 57.9 69.6 57.9h58.9c16.8 0 25.3-8.4 20.4-25-11.2-34.9-86.9-106.7-90.3-111.5-8.7-11.2-6.2-16.2 0-26.2.1-.1 72-101.3 79.4-135.6z"/></svg>
-                                        <span>ВКонтакте</span>
-                                    </a>
-                                    <a href="https://t.me/structr_public" target="_blank" class="footer-button glass-card hover-target">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
-                                        <span>Telegram</span>
-                                    </a>
+
+                            <div class="footer-block-wrapper scroll-anim">
+                                <div class="footer-container">
+                                    
+                                    <!-- Левая часть с заголовком и ссылками -->
+                                    <div class="footer-left-content">
+                                        <h2 class="footer-main-title">Остались вопросы?<br>Напишите нам!</h2>
+                                        
+                                        <div class="footer-links-section">
+                                            <!-- Колонка 1: Соцсети -->
+                                            <div class="footer-column">
+                                                <div class="footer-column-title">Соц. сети артиста:</div>
+                                                <div class="footer-links-list">
+                                                    <a href="https://vk.ru/godtrapin" target="_blank" class="footer-link hover-target">Вконтакте</a>
+                                                    <a href="https://t.me/nastybabe_ru" target="_blank" class="footer-link hover-target">Телеграм</a>
+                                                </div>
+                                            </div>
+
+                                            <!-- Колонка 2: Вопросы -->
+                                            <div class="footer-column">
+                                                <div class="footer-column-title">Вопросы по билетам:</div>
+                                                <div class="footer-links-list">
+                                                    <a href="https://t.me/andreybazhura" target="_blank" class="footer-link hover-target">Андрей</a>
+                                                    <a href="https://t.me/kris024b" target="_blank" class="footer-link hover-target">Кристина</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Правая часть: Логотип -->
+                                    <div class="footer-logo-wrapper">
+                                        <img src="./nb%20logo.webp" alt="Nasty Babe Logo" class="footer-logo hover-target">
+                                    </div>
+
                                 </div>
-                                <div class="footer-legal">
+
+                                <!-- Юридический текст -->
+                                <div class="footer-legal-text">
                                     <p>Вся представленная на сайте информация, касающаяся расписания, цен и наличия билетов, носит информационный характер...</p>
                                 </div>
                             </div>
                         </div>
+
+
 
                         <!-- Блок 6: Cookies -->
                         <div id="block_481021" class="col-12 my-2">
