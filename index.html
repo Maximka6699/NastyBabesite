@@ -12,16 +12,25 @@
     <meta property="og:title" content="Nasty Babe – Большой сольный концерт" />
     <meta property="og:description" content="Патрики, Фонари и другие хиты + Новые песни!" />
     
+    <!-- ОПТИМИЗАЦИЯ: Предзагрузка тяжелых ресурсов для мгновенной отрисовки -->
+    <link rel="preload" as="image" href="./fone-site.jpg">
+    <link rel="preload" as="image" href="./nb11.webp" fetchpriority="high">
+    <link rel="preload" as="script" href="https://cdn.tailwindcss.com">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link href="https://84tour.ru/themes/altum/assets/css/bootstrap.min.css?v=2415155" rel="stylesheet" media="screen,print">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
     
-    <!-- Подключение библиотеки Lenis для плавного скролла -->
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
-
+    <!-- Tailwind (оставлен по запросу) с defer -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    
+    <!-- ОПТИМИЗАЦИЯ: Объединенный запрос шрифтов -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Montserrat:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <link href="https://84tour.ru/themes/altum/assets/css/bootstrap.min.css?v=2415155" rel="stylesheet" media="screen,print">
+    
+    <!-- Подключение библиотеки Lenis с defer -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js" defer></script>
+    
     <style>
         /* ОТКЛЮЧАЕМ СТАНДАРТНЫЙ КУРСОР НА ВСЕМ САЙТЕ */
         html, body, a, button, .cta-button {
@@ -50,36 +59,44 @@
             position: fixed;
             top: 0; left: 0;
             width: 12px; height: 12px;
-            background-color: rgba(146, 164, 187, 0.8); /* Серо-голубой цвет */
+            background-color: rgba(146, 164, 187, 0.8);
             border-radius: 50%;
-            pointer-events: none; /* Чтобы не мешал кликать */
+            pointer-events: none;
             z-index: 999999;
-            transform: translate3d(-50%, -50%, 0) scale(1);
-            transition: transform 50ms ease, background-color 0.2s ease;
-            mix-blend-mode: difference; /* Красивое наложение цвета */
+            transform: translate(-50%, -50%) scale(1);
+            transition: transform 50ms ease, background-color 50ms ease;
+            mix-blend-mode: difference;
+            will-change: transform;
         }
-        /* Состояние курсора при наведении */
         .custom-cursor.hovered {
-            transform: translate3d(-50%, -50%, 0) scale(3.5);
+            transform: translate(-50%, -50%) scale(3.5);
             background-color: rgba(255, 255, 255, 1);
+        }
+
+        /* ОПТИМИЗАЦИЯ: Отключаем кастомный курсор на тачскринах */
+        @media (pointer: coarse) {
+            .custom-cursor { display: none !important; }
+            html, body, a, button, .cta-button { cursor: auto !important; }
         }
 
         /* ГЛОБАЛЬНЫЙ ФОН И ТЕНЬ */
         .global-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: url('./fone-site.jpg'); /* ФОН */
+            background-image: url('./fone-site.jpg');
             background-size: contain; background-position: center;
             z-index: -2;
+            will-change: transform;
         }
+
         .global-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            /* ПЕРЕЛИВАЮЩАЯСЯ ГРАДИЕНТНАЯ ТЕНЬ */
             background: linear-gradient(45deg, rgba(5, 7, 10, 0.8), rgba(20, 26, 38, 0.5), rgba(5, 7, 10, 0.85));
             background-size: 400% 400%;
             animation: gradient-shift 15s ease infinite;
             z-index: -1;
             pointer-events: none;
         }
+
         @keyframes gradient-shift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -245,13 +262,16 @@
                                     <div class="top-elements"><div class="age-rating scroll-anim">16+</div></div>
                                     <div class="main-headline scroll-anim">
                                         <div class="h1-style">
-                                            <img src="./nb%20logo.webp" alt="Логотип">
+                                            <!-- Высокий приоритет загрузки для логотипа -->
+                                            <img src="./nb%20logo.webp" alt="Логотип" fetchpriority="high">
                                         </div>
                                     </div>
                                     <div class="h1-style fon">
-                                            <img class="fon" src="./fone-site.jpg" alt="Фон" style="opacity: 0.4;">
-                                        </div>
-                                    <img src="./nb11.webp" alt="Артист" class="artist-image scroll-anim" style="transition-delay: 0.2s;">
+                                        <!-- Высокий приоритет загрузки для фона -->
+                                        <img class="fon" src="./fone-site.jpg" alt="Фон" style="opacity: 0.4;" fetchpriority="high">
+                                    </div>
+                                    <!-- Высокий приоритет для LCP -->
+                                    <img src="./nb11.webp" alt="Артист" class="artist-image scroll-anim" style="transition-delay: 0.2s;" fetchpriority="high">
                                     <div class="marquee-banner">
                                         <div class="marquee-text">
                                             <span>«Патрики», «Фонари», «Burberry цвета песок» и другие хиты + Новые песни! Nasty Babe Большой сольный концерт. </span>
@@ -295,6 +315,7 @@
                                     .priority-concerts-container { grid-template-columns: repeat(2, 1fr); max-width: 1000px; margin: 0 auto 30px auto; gap: 30px; }
                                     .other-concerts-container { grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); max-width: 1200px; margin: 0 auto; gap: 30px;}
                                 }
+
                                 /* Стили для нового заголовка тура */
                                 .tour-main-title {
                                     text-align: center;
@@ -314,27 +335,16 @@
                                     margin-top: 10px;
                                     text-shadow: 0 0 20px rgba(146, 164, 187, 0.4);
                                 }
-
-                                /* Адаптив заголовка для телефонов */
                                 @media (max-width: 768px) {
-                                    .tour-main-title {
-                                        font-size: 1.5rem;
-                                        margin-top: 20px;
-                                        margin-bottom: 30px;
-                                    }
-                                    .tour-main-title .highlight {
-                                        font-size: 2rem;
-                                    }
+                                    .tour-main-title { font-size: 1.5rem; margin-top: 20px; margin-bottom: 30px; }
+                                    .tour-main-title .highlight { font-size: 2rem; }
                                 }
-
                             </style>
                             <div id="schedule" class="schedule-block-wrapper-gp-g-v6">
-                                <!-- ДОБАВЛЕННЫЙ ЗАГОЛОВОК -->
                                 <h2 class="tour-main-title scroll-anim">
                                     ВЕСЕННИЙ ТУР АРТИСТА<br>
                                     <span class="highlight">НЭСТИ БЭЙБ \ NASTY BABE</span>
                                 </h2>
-                                
                                 <div class="priority-concerts-container"></div>
                                 <div class="other-concerts-container"></div>
                             </div>
@@ -369,13 +379,11 @@
                                                 <div class="actions">${aHTML}</div>
                                             </div>`;
                                         };
-
                                         otherWrapper.innerHTML = sortedConcerts.map(createCardHTML).join('');
                                         if (priorityWrapper) priorityWrapper.innerHTML = '';
                                     }
                                 })();
                             </script>
-
                         </div>
 
                         <!-- Блок 3.5: Тайминг -->
@@ -485,7 +493,7 @@
                                 .footer-left-content {
                                     display: flex;
                                     flex-direction: column;
-                                    gap: 30px; /* Расстояние между заголовком и колонками */
+                                    gap: 30px; 
                                 }
 
                                 .footer-main-title {
@@ -539,7 +547,7 @@
                                 }
 
                                 .footer-logo {
-                                    width: 300px; /* Сделал логотип чуть больше для баланса с заголовком */
+                                    width: 300px; 
                                     height: auto;
                                     object-fit: contain;
                                     filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
@@ -561,41 +569,15 @@
                                     text-align: center;
                                 }
 
-                                /* Адаптация для мобильных устройств */
                                 @media (max-width: 992px) {
-                                    .footer-block-wrapper {
-                                        padding: 40px 20px 80px;
-                                    }
-                                    .footer-container {
-                                        flex-direction: column;
-                                        align-items: center;
-                                        text-align: center;
-                                        gap: 40px;
-                                    }
-                                    .footer-left-content {
-                                        align-items: center;
-                                        gap: 40px;
-                                    }
-                                    .footer-main-title {
-                                        font-size: 1.8rem;
-                                        text-align: center;
-                                    }
-                                    .footer-links-section {
-                                        flex-direction: column;
-                                        gap: 30px;
-                                        width: 100%;
-                                    }
-                                    .footer-column {
-                                        flex-direction: column;
-                                        align-items: center;
-                                        gap: 10px;
-                                    }
-                                    .footer-logo {
-                                        width: 200px;
-                                    }
-                                    .footer-links-list {
-                                        align-items: center;
-                                    }
+                                    .footer-block-wrapper { padding: 40px 20px 80px; }
+                                    .footer-container { flex-direction: column; align-items: center; text-align: center; gap: 40px; }
+                                    .footer-left-content { align-items: center; gap: 40px; }
+                                    .footer-main-title { font-size: 1.8rem; text-align: center; }
+                                    .footer-links-section { flex-direction: column; gap: 30px; width: 100%; }
+                                    .footer-column { flex-direction: column; align-items: center; gap: 10px; }
+                                    .footer-logo { width: 200px; }
+                                    .footer-links-list { align-items: center; }
                                 }
                             </style>
 
@@ -627,9 +609,10 @@
                                         </div>
                                     </div>
 
-                                    <!-- Правая часть: Логотип -->
+                                    <!-- Правая часть: Логотип (добавлен ленивый лоадинг) -->
                                     <div class="footer-logo-wrapper">
-                                        <img src="./nb%20logo.webp" alt="Nasty Babe Logo" class="footer-logo hover-target">
+                                        <!-- ОПТИМИЗАЦИЯ: loading="lazy" -->
+                                        <img src="./nb%20logo.webp" alt="Nasty Babe Logo" class="footer-logo hover-target" loading="lazy">
                                     </div>
 
                                 </div>
@@ -640,8 +623,6 @@
                                 </div>
                             </div>
                         </div>
-
-
 
                         <!-- Блок 6: Cookies -->
                         <div id="block_481021" class="col-12 my-2">
@@ -693,7 +674,7 @@
             // 1. ИНИЦИАЛИЗАЦИЯ ПЛАВНОГО СКРОЛЛА (Lenis)
             const lenis = new Lenis({
                 duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Плавная кривая замедления
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
                 smooth: true,
                 mouseMultiplier: 1,
             });
@@ -718,33 +699,71 @@
                 document.querySelectorAll('.scroll-anim').forEach(el => observer.observe(el));
             }, 300);
 
-            // 3. КАСТОМНЫЙ КУРСОР
-            const cursor = document.getElementById('custom-cursor');
-            
-            // Движение курсора за мышью
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0) scale(${cursor.classList.contains('hovered') ? 3.5 : 1})`;
-            });
+            // 3. КАСТОМНЫЙ КУРСОР (ОПТИМИЗИРОВАННЫЙ, ТОЛЬКО ДЛЯ ПК)
+            if (window.matchMedia("(pointer: fine)").matches) {
+                const cursor = document.getElementById('custom-cursor');
+                let mouseX = 0, mouseY = 0;
+                let cursorX = 0, cursorY = 0;
 
-            // Логика увеличения курсора при наведении на интерактивные элементы
-            const attachCursorEvents = () => {
-                const hoverTargets = document.querySelectorAll('a, button, .hover-target');
-                hoverTargets.forEach(el => {
-                    // Удаляем старые слушатели чтобы не дублировать
-                    el.removeEventListener('mouseenter', addHover);
-                    el.removeEventListener('mouseleave', removeHover);
-                    
-                    el.addEventListener('mouseenter', addHover);
-                    el.addEventListener('mouseleave', removeHover);
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
                 });
-            };
 
-            const addHover = () => cursor.classList.add('hovered');
-            const removeHover = () => cursor.classList.remove('hovered');
+                const attachCursorEvents = () => {
+                    const hoverTargets = document.querySelectorAll('a, button, .hover-target');
+                    hoverTargets.forEach(el => {
+                        el.removeEventListener('mouseenter', addHover);
+                        el.removeEventListener('mouseleave', removeHover);
+                        
+                        el.addEventListener('mouseenter', addHover);
+                        el.addEventListener('mouseleave', removeHover);
+                    });
+                };
 
-            // Запускаем через небольшую задержку, чтобы JS успел сгенерировать карточки городов и билетов
-            setTimeout(attachCursorEvents, 500);
+                const addHover = () => cursor.classList.add('hovered');
+                const removeHover = () => cursor.classList.remove('hovered');
+
+                setTimeout(attachCursorEvents, 500);
+            } else {
+                const cursor = document.getElementById('custom-cursor');
+                if(cursor) cursor.remove();
+            }
         });
     </script>
+        <!-- СКРИПТ ДЛЯ УДАЛЕНИЯ ВИСЯЧИХ ПРЕДЛОГОВ -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Список предлогов и союзов (русские + популярные), которые не должны висеть
+            const prepositions = ['в', 'без', 'до', 'из', 'к', 'на', 'по', 'о', 'от', 'перед', 'при', 'через', 'с', 'у', 'за', 'над', 'об', 'под', 'про', 'для', 'и', 'а', 'но', 'да', 'или', 'что', 'как', 'я', 'мы', 'вы', 'он', 'она', 'не', 'ни'];
+
+            // Функция, которая находит предлоги и заменяет пробел после них на неразрывный пробел (&nbsp;)
+            function fixOrphans(text) {
+                // Создаем регулярное выражение для поиска
+                // Ищет начало слова, сам предлог и обычный пробел после него
+                const regex = new RegExp(`(^|\\s)(${prepositions.join('|')})\\s+`, 'gi');
+                // Заменяем обычный пробел на неразрывный (\u00A0 - это код &nbsp;)
+                return text.replace(regex, '$1$2\u00A0');
+            }
+
+            // Проходимся по всем элементам, где может быть текст
+            const elements = document.querySelectorAll('p, span, div, h1, h2, h3, h4, h5, h6, li, a');
+            
+            elements.forEach(el => {
+                // Чтобы не сломать HTML (если внутри элемента есть другие теги), 
+                // мы проверяем только текстовые узлы внутри элементов
+                for (let i = 0; i < el.childNodes.length; i++) {
+                    const node = el.childNodes[i];
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        // Очищаем текст только если он не пустой
+                        if(node.nodeValue.trim() !== '') {
+                            node.nodeValue = fixOrphans(node.nodeValue);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
